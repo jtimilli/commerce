@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %} {% block body %}
+<h2>Active Listings</h2>
+
+{% for list in listings %}
+<div>
+  <a href="{% url 'listing' listing_id=list.id %}">
+    {% if list.active == True %}
+    <h2>{{ list.title }}</h2>
+  </a>
+  <p>About: {{ list.description }}</p>
+
+  <p>{% if list.starting_bid and list.current_bid %}
+    <div>{% if list.starting_bid > list.current_bid %}</div>
+    <p>Starting bid: ${{list.starting_bid}}</p>
+    {% else %}
+    <p>Current bid: ${{list.current_bid}}</p>
+    {% endif %} {% elif list.starting_bid %}
+    <p>Starting bid: ${{list.starting_bid}}</p>
+    {% elif list.current_bid %}
+    <p>Current bid: ${{list.current_bid}}</p>
+    {% else %}
+    <p>No bids have been placed</p>
+    {% endif %}</p>
+
+    
+  {% if list.image %}
+  <img src="{{ list.image }}" alt="{{ list.title }}" />
+  {% endif %}
+</div>
+{% endif %}
+{% empty %}
+<p>There are no active listings at the moment.</p>
+
+
+{% endfor %} {% endblock %}

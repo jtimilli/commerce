@@ -1,0 +1,52 @@
+{% extends 'auctions/layout.html' %} 
+
+{% block body %}
+
+<label for="category"> Search Category:</label>
+<form method="post" id="categories" >
+    {% csrf_token %}
+    <select class="form-control" form="categories" name="category">
+      <option value="">Select a category</option>
+      <option value="Fashion">Fashion</option>
+      <option value="Toys">Toys</option>
+      <option value="Electronics">Electronics</option>
+      <option value="Home">Home</option>
+      <option value="Other">Other</option>
+    </select>
+    <input type="submit" value="Select Category">
+</form>
+
+{% if listings != None %}
+{% for list in listings %}
+{% if list.active == True %}
+<div>
+  <a href="{% url 'listing' listing_id=list.id %}">
+    <h2>{{ list.title }}</h2>
+  </a>
+  <p>About: {{ list.description }}</p>
+
+  <p>{% if list.starting_bid and list.current_bid %}
+    <div>{% if list.starting_bid > list.current_bid %}</div>
+    <p>Starting bid: ${{list.starting_bid}}</p>
+    {% else %}
+    <p>Current bid: ${{list.current_bid}}</p>
+    {% endif %} {% elif list.starting_bid %}
+    <p>Starting bid: ${{list.starting_bid}}</p>
+    {% elif list.current_bid %}
+    <p>Current bid: ${{list.current_bid}}</p>
+    {% else %}
+    <p>No bids have been placed</p>
+    {% endif %}</p>
+
+    
+  {% if list.image %}
+  <img src="{{ list.image }}" alt="{{ list.title }}" />
+  {% endif %}
+
+  {% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+
+{% endblock %}
