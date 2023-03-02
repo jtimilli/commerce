@@ -71,8 +71,11 @@
   </div>
 
   <form method="post" action="{% url 'listing' listing_id=listing.id %}">
-    {% csrf_token %} {{ form.as_p }}
-    <input type="submit" value="Submit Comment" />
+    <div class="row g-3 align-items-center">
+      {% csrf_token %}
+      <div class="col-auto">{{ form.as_p }}</div>
+      <button type="submit" class="btn btn-primary">Submit comment</button>
+    </div>
   </form>
 
   {% endif %}
