@@ -24,12 +24,24 @@
 
     
   {% if list.image %}
-  <img src="{{ list.image }}" alt="{{ list.title }}" />
+  <div style="max-width: 250px; max-height: 230px; overflow: hidden;">
+    <img
+      style="max-width: 100%; max-height: 100%"
+      src="{{ list.image }}"
+      alt="{{ list.title }}"
+    />
+  </div>
   {% endif %}
+  {% endif %}
+  {% empty %}
+  <p>There are no active listings at the moment.</p>
 </div>
-{% endif %}
-{% empty %}
-<p>There are no active listings at the moment.</p>
 
 
 {% endfor %} {% endblock %}
+
+{% block styles %}
+  
+
+
+{% endblock %}
