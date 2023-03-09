@@ -8,6 +8,12 @@
   {% endif %}
 </div>
 
+<div>
+  {% if error_message %}
+  <div class="alert alert-danger">{{error_message}}</div>
+  {% endif %}
+</div>
+
 <div >
   <h2>{{listing.title}}</h2>
   

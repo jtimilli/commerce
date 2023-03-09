@@ -171,6 +171,10 @@ def update_bid(request, listing_id):
             bid.bid_amount = new_bid
             bid.user = user
             listing.current_bid = new_bid
+        elif new_bid <= current_bid or new_bid <= listing.starting_bid:
+            error_message = "Bid must be more higher than current bid"
+            return render(request,  "auctions/listing.html", { "listing": listing, "current_bid": current_bid, "error_message": error_message
+    })
 
         # save the bid and listing objects
         bid.save()
