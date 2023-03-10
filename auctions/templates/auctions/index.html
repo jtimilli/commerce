@@ -1,47 +1,40 @@
 {% extends "auctions/layout.html" %} {% block body %}
+
 <h2>Active Listings</h2>
 
-{% for list in listings %}
-<div>
-  <a href="{% url 'listing' listing_id=list.id %}">
-    {% if list.active == True %}
+{% for list in listings %} {% if list.active == True %}
+<div class="list-group-item"  id="auction-items"style="background-color: #f8f9fa; border-color: #dee2e6; padding: 1rem; margin-bottom: 1rem; border-radius: 0.25rem;">
+  <a
+    href="{% url 'listing' listing_id=list.id %}"
+    style="text-decoration-line: none; color: #343a40;"
+  >
     <h2>{{ list.title }}</h2>
-  </a>
-  <p>About: {{ list.description }}</p>
 
-  <p>{% if list.starting_bid and list.current_bid %}
-    <div>{% if list.starting_bid > list.current_bid %}</div>
-    <p>Starting bid: ${{list.starting_bid}}</p>
-    {% else %}
-    <p>Current bid: ${{list.current_bid}}</p>
-    {% endif %} {% elif list.starting_bid %}
+    {% if list.starting_bid and list.current_bid %}
+    <p>
+      {% if list.starting_bid > list.current_bid %} Starting bid:
+      ${{list.starting_bid}} {% else %} Current bid: ${{list.current_bid}} 
+      <div>
+        {% endif %}
+      </div>
+    </p>
+    {% elif list.starting_bid %}
     <p>Starting bid: ${{list.starting_bid}}</p>
     {% elif list.current_bid %}
     <p>Current bid: ${{list.current_bid}}</p>
     {% else %}
     <p>No bids have been placed</p>
-    {% endif %}</p>
-
-    
-  {% if list.image %}
-  <div style="max-width: 250px; max-height: 230px; overflow: hidden;">
-    <img
-      style="max-width: 100%; max-height: 100%"
-      src="{{ list.image }}"
-      alt="{{ list.title }}"
-    />
-  </div>
-  {% endif %}
-  {% endif %}
-  {% empty %}
-  <p>There are no active listings at the moment.</p>
+    {% endif %} {% if list.image %}
+    <div style="max-width: 250px; max-height: 230px; overflow: hidden">
+      <img
+        style="max-width: 100%; max-height: 100%"
+        src="{{ list.image }}"
+        alt="{{ list.title }}"
+      />
+    </div>
+    {% endif %}
+  </a>
 </div>
-
-
+{% endif %} {% empty %}
+<p>There are no active listings at the moment.</p>
 {% endfor %} {% endblock %}
-
-{% block styles %}
-  
-
-
-{% endblock %}
