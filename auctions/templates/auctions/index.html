@@ -12,22 +12,22 @@
 
     {% if list.starting_bid and list.current_bid %}
     <p>
-      {% if list.starting_bid > list.current_bid %} Starting bid:
-      ${{list.starting_bid}} {% else %} Current bid: ${{list.current_bid}} 
+      {% if list.starting_bid > list.current_bid %} <strong>Starting bid:</strong>
+      ${{list.starting_bid}} {% else %}<strong> Current bid: </strong>${{list.current_bid}} 
       <div>
         {% endif %}
       </div>
     </p>
     {% elif list.starting_bid %}
-    <p>Starting bid: ${{list.starting_bid}}</p>
+    <p><strong>Starting bid:</strong> ${{list.starting_bid}}</p>
     {% elif list.current_bid %}
-    <p>Current bid: ${{list.current_bid}}</p>
+    <p><strong>Current bid:</strong> ${{list.current_bid}}</p>
     {% else %}
     <p>No bids have been placed</p>
     {% endif %} {% if list.image %}
     <div style="max-width: 250px; max-height: 230px; overflow: hidden">
       <img
-        style="max-width: 100%; max-height: 100%"
+        style="max-width: 100%; max-height: 100%; border-radius: 10px; "
         src="{{ list.image }}"
         alt="{{ list.title }}"
       />

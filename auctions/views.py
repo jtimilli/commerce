@@ -172,8 +172,9 @@ def update_bid(request, listing_id):
             bid.user = user
             listing.current_bid = new_bid
         elif new_bid <= current_bid or new_bid <= listing.starting_bid:
+            watchlist, _ = Watchlist.objects.get_or_create(user=request.user)
             error_message = "Bid must be more higher than current bid"
-            return render(request,  "auctions/listing.html", { "listing": listing, "current_bid": current_bid, "error_message": error_message
+            return render(request,  "auctions/listing.html", { "listing": listing, "current_bid": current_bid, "error_message": error_message, "watchlist": watchlist
     })
 
         # save the bid and listing objects
